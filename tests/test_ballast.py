@@ -10,7 +10,7 @@ import pytest
 
 from ballast.analyze import analyze, verdict_for
 from ballast.events import StageInfo, TaskMetrics, parse
-from ballast.simulate import build_log, write_log
+from ballast.simulate import write_log
 
 
 def T(stage=1, task=1, dur=10_000, gc=0, read=0, write=0,
