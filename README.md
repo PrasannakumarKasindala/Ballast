@@ -1,4 +1,4 @@
-# ballast ⚓
+# Ballast ⚓
 
 ![tests](https://img.shields.io/badge/tests-13%20passing-brightgreen)
 ![deps](https://img.shields.io/badge/runtime%20deps-0-blue)
