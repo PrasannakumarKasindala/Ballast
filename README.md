@@ -1,6 +1,6 @@
 # ballast ⚓
 
-![tests](https://img.shields.io/badge/tests-12%20passing-brightgreen)
+![tests](https://img.shields.io/badge/tests-13%20passing-brightgreen)
 ![deps](https://img.shields.io/badge/runtime%20deps-0-blue)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![license](https://img.shields.io/badge/license-MIT-lightgrey)
@@ -127,7 +127,7 @@ both halves. The commit message tells the same story the git log does.
 
 ```bash
 make install   # editable install with dev extras
-make test      # 12 tests, all fast, no infra
+make test      # 13 tests, all fast, no infra
 make lint      # ruff
 make demo      # a job having a bad day, diagnosed
 make bench     # measure throughput on your machine

@@ -5,6 +5,8 @@ perf entry cites its before and after.
 
 ## [0.2.0] -- 2026-07-06
 ### Added
+- Gzipped event logs (spark.eventLog.compress=true is the common
+  production setting), with a test pinning identical analysis to plain.
 - Benchmark: parse and analyze measured separately, 15 repeats, p50/p95/p99,
   on synthetic logs with a realistic 50:1 noise ratio. Results and chart
   committed.
@@ -26,4 +28,4 @@ perf entry cites its before and after.
   task_failures. Headline number is drag (wall minus median), a
   deliberate single-wave lower bound.
 - CLI (analyze, demo, shanty), the demo log with planted problems,
-  12 tests.
+  12 tests (13 with the gz regression test added in 0.2.0).
