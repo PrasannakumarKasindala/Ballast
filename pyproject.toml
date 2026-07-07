@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ballast"
+version = "0.1.0"
+description = "Finds the skew that makes your Spark jobs list. Reads event logs; no Spark install needed."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Prasannakumar Kasindala" }]
+
+# Zero third-party runtime dependencies. Spark event logs are JSON lines;
+# stdlib does JSON lines.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["ballast"]
