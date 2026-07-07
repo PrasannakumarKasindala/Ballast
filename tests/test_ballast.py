@@ -111,9 +111,16 @@ def test_parse_skips_unknown_events(tmp_path):
 
 def test_parse_bad_line_raises_with_line_number(tmp_path):
     p = tmp_path / "log.jsonl"
-    p.write_text('{"Event": "SparkListenerTaskEnd"}\nnot json\n')
+    # A corrupt line that names a wanted event must still raise loudly...
+    p.write_text('{"Event": "SparkListenerStageCompleted"}\n'
+                 '{"Event": "SparkListenerTaskEnd", broken\n')
     with pytest.raises(ValueError, match="log.jsonl:2"):
         parse(p)
+    # ...but corrupt NOISE is skipped by the pre-filter without parsing.
+    # That trade-off is deliberate: the filter is why a 600MB log parses
+    # in seconds, and noise corruption cannot change any number we report.
+    p.write_text('this line is not json and mentions no wanted event\n')
+    assert parse(p).stages == {}
 
 
 def test_demo_findings_are_exactly_the_planted_ones(tmp_path):

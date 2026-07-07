@@ -91,16 +91,30 @@ def _task_end(doc: dict) -> TaskMetrics:
     )
 
 
+_WANTED = ("SparkListenerTaskEnd", "SparkListenerStageCompleted",
+           "SparkListenerApplicationStart")
+
+
 def parse(path: str | Path) -> AppLog:
     """Parse one event log file (the uncompressed JSON-lines form).
 
-    Unknown events are skipped by design; a malformed line raises with its
-    line number, because an analyzer that silently ate half a log would
-    report half the skew and all of the confidence.
+    Unknown events are skipped by design; a malformed line among the events
+    we DO read raises with its line number, because an analyzer that
+    silently ate half a log would report half the skew and all of the
+    confidence.
+
+    The substring pre-filter below is what makes the docstring's "skipped
+    without parsing" claim true. The first benchmark caught the code
+    json.loads-ing every one of the ~98% noise lines anyway (52 MB/s). An
+    event's type appears verbatim in its line, so lines containing none of
+    the wanted names cannot be wanted events: no false negatives, and any
+    false positive still faces the authoritative Event check after parsing.
     """
     app = AppLog()
     with Path(path).open() as f:
         for lineno, line in enumerate(f, 1):
+            if not any(w in line for w in _WANTED):
+                continue
             line = line.strip()
             if not line:
                 continue

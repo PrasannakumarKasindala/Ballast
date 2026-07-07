@@ -1,0 +1,46 @@
+[
+  {
+    "tasks": 1000,
+    "log_lines": 51003,
+    "log_mb": 6.0,
+    "parse_p50_ms": 39.6,
+    "parse_p95_ms": 41.4,
+    "parse_p99_ms": 41.9,
+    "analyze_p50_ms": 0.39,
+    "lines_per_sec": 1289370,
+    "mb_per_sec": 150.8
+  },
+  {
+    "tasks": 5000,
+    "log_lines": 255011,
+    "log_mb": 29.8,
+    "parse_p50_ms": 195.6,
+    "parse_p95_ms": 200.1,
+    "parse_p99_ms": 200.1,
+    "analyze_p50_ms": 1.76,
+    "lines_per_sec": 1303536,
+    "mb_per_sec": 152.5
+  },
+  {
+    "tasks": 25000,
+    "log_lines": 1275051,
+    "log_mb": 149.2,
+    "parse_p50_ms": 1001.4,
+    "parse_p95_ms": 1018.0,
+    "parse_p99_ms": 1019.9,
+    "analyze_p50_ms": 8.75,
+    "lines_per_sec": 1273215,
+    "mb_per_sec": 149.0
+  },
+  {
+    "tasks": 100000,
+    "log_lines": 5100201,
+    "log_mb": 596.8,
+    "parse_p50_ms": 3998.4,
+    "parse_p95_ms": 4096.5,
+    "parse_p99_ms": 4140.3,
+    "analyze_p50_ms": 34.45,
+    "lines_per_sec": 1275548,
+    "mb_per_sec": 149.3
+  }
+]
