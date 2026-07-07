@@ -18,5 +18,8 @@ dependencies = []
 [project.optional-dependencies]
 dev = ["pytest>=7"]
 
+[project.scripts]
+ballast = "ballast.cli:main"
+
 [tool.setuptools]
 packages = ["ballast"]
