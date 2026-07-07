@@ -4,6 +4,7 @@ hand-rolled stages so a failure points at the math, not at 1,400 tasks of
 demo log.
 """
 
+import gzip
 import json
 
 import pytest
@@ -134,3 +135,13 @@ def test_demo_findings_are_exactly_the_planted_ones(tmp_path):
         11: {"straggler"},
         13: {"task_failures"},
     }
+
+
+def test_parse_reads_gzipped_logs(tmp_path):
+    """spark.eventLog.compress=true is the common production setting; the
+    .gz path must produce byte-for-byte the same analysis as the plain one."""
+    plain = write_log(tmp_path / "events.jsonl")
+    gz = tmp_path / "events.jsonl.gz"
+    with gzip.open(gz, "wt") as f:
+        f.write(plain.read_text())
+    assert analyze(parse(gz)) == analyze(parse(plain))

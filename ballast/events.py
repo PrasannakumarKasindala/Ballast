@@ -21,10 +21,11 @@ edge, once.
 
 from __future__ import annotations
 
+import gzip
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, TextIO
 
 
 @dataclass(frozen=True)
@@ -95,6 +96,15 @@ _WANTED = ("SparkListenerTaskEnd", "SparkListenerStageCompleted",
            "SparkListenerApplicationStart")
 
 
+def _open(path: str | Path) -> TextIO:
+    """Real deployments set spark.eventLog.compress=true; a skew tool that
+    cannot read .gz would fail on the first production log it met."""
+    p = Path(path)
+    if p.suffix == ".gz":
+        return gzip.open(p, "rt")
+    return p.open()
+
+
 def parse(path: str | Path) -> AppLog:
     """Parse one event log file (the uncompressed JSON-lines form).
 
@@ -111,7 +121,7 @@ def parse(path: str | Path) -> AppLog:
     false positive still faces the authoritative Event check after parsing.
     """
     app = AppLog()
-    with Path(path).open() as f:
+    with _open(path) as f:
         for lineno, line in enumerate(f, 1):
             if not any(w in line for w in _WANTED):
                 continue
@@ -140,7 +150,7 @@ def parse(path: str | Path) -> AppLog:
 
 def iter_events(path: str | Path) -> Iterator[dict]:
     """Raw event iterator, for anyone digging past what ballast lifts."""
-    with Path(path).open() as f:
+    with _open(path) as f:
         for line in f:
             line = line.strip()
             if line:
