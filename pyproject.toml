@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ballast"
-version = "0.1.0"
+version = "0.2.0"
 description = "Finds the skew that makes your Spark jobs list. Reads event logs; no Spark install needed."
 readme = "README.md"
 requires-python = ">=3.10"
